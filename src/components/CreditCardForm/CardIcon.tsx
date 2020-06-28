@@ -17,7 +17,6 @@ interface CardIconProps {
 }
 
 function CardIcon({ cardType }: CardIconProps) {
-  console.log(cardType)
   const Icon = cardIcons.get(cardType)|| UnknownCard
 
   return (

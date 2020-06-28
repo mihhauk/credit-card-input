@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-
-import { Formik, Field } from 'formik'
+import moment from 'moment'
+import { Formik, FormikErrors } from 'formik'
 import { StyledForm } from './styles'
 import {
   CardNumberInput,
@@ -10,14 +10,27 @@ import {
 import CardIcon from './CardIcon'
 import { CardType } from './consts'
 
-interface MyFormValues {
+interface FormValues {
   cardNumber: string
   expiryDate: string
   ccv: string
 }
 
+function validate(values: FormValues): FormikErrors<FormValues> {
+  let errors: FormikErrors<FormValues> = {}
+
+  if (values.expiryDate.length === 5) {
+    const date = moment(values.expiryDate, 'MM/YY')
+    if (date.isBefore(moment())) {
+      errors.expiryDate = 'expiry date cannot be in the past'
+    }
+  }
+
+  return errors
+}
+
 function CreditCardForm() {
-  const initialValues: MyFormValues = {
+  const initialValues: FormValues = {
     cardNumber: '',
     expiryDate: '',
     ccv: '',
@@ -26,12 +39,16 @@ function CreditCardForm() {
   const [cardType, setCardType] = useState(CardType.UNKNOWN)
 
   return (
-    <Formik initialValues={initialValues} onSubmit={() => {}}>
+    <Formik
+      initialValues={initialValues}
+      validate={validate}
+      onSubmit={() => {}}
+    >
       <StyledForm>
         <CardIcon cardType={cardType} />
-        <Field name='cardNumber' onCardTypeChanged={setCardType} component={CardNumberInput} />
-        <Field name='expiryDate' component={ExpiryDateInput} />
-        <Field name='ccv' component={CardVerificationValueInput} />
+        <CardNumberInput name='cardNumber' onCardTypeChanged={setCardType} />
+        <ExpiryDateInput name='expiryDate' />
+        <CardVerificationValueInput name='ccv' />
       </StyledForm>
     </Formik>
   )

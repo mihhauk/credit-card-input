@@ -13,6 +13,7 @@
     "@types/styled-components": "^5.1.0",
     "cleave.js": "^1.6.0",
     "formik": "^2.1.4",
+    "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",

@@ -1,11 +1,17 @@
 import React from 'react'
+import { useField } from 'formik'
 import { StyledCleaveInput } from './styles'
 
 interface CardNumberInputProps {
-  onCardTypeChanged(cardType: string): void
+  name: string
+  onCardTypeChanged: Function
 }
 
-function CardNumberInput({ onCardTypeChanged }: CardNumberInputProps) {
+function CardNumberInput({
+  name,
+  onCardTypeChanged,
+}: CardNumberInputProps) {
+    const [field, meta] = useField(name)
   return (
     <StyledCleaveInput
       placeholder='Card number'
@@ -15,6 +21,8 @@ function CardNumberInput({ onCardTypeChanged }: CardNumberInputProps) {
           onCardTypeChanged(cardType),
       }}
       style={{ width: '160px' }}
+      {...field}
+      error={!!meta.error}
     />
   )
 }
