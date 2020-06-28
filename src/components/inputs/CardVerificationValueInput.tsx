@@ -1,7 +1,5 @@
 import React from 'react'
-import Cleave from 'cleave.js/react'
 import { StyledInput } from './styles'
-import { Field } from 'formik'
 
 function CardVerificationValueInput() {
   return (
