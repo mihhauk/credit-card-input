@@ -1,12 +1,20 @@
 import React from 'react'
 import { StyledCleaveInput } from './styles'
 
-function CardNumberInput() {
+interface CardNumberInputProps {
+  onCardTypeChanged(cardType: string): void
+}
+
+function CardNumberInput({ onCardTypeChanged }: CardNumberInputProps) {
   return (
     <StyledCleaveInput
-      placeholder="Card number"
-      options={{ creditCard: true }}
-      style={{width: '160px'}}
+      placeholder='Card number'
+      options={{
+        creditCard: true,
+        onCreditCardTypeChanged: (cardType: string) =>
+          onCardTypeChanged(cardType),
+      }}
+      style={{ width: '160px' }}
     />
   )
 }

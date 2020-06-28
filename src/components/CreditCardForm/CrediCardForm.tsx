@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Formik, Field } from 'formik'
 import { StyledForm } from './styles'
@@ -6,7 +6,9 @@ import {
   CardNumberInput,
   ExpiryDateInput,
   CardVerificationValueInput,
-} from './inputs'
+} from '../inputs'
+import CardIcon from './CardIcon'
+import { CardType } from './consts'
 
 interface MyFormValues {
   cardNumber: string
@@ -21,10 +23,13 @@ function CreditCardForm() {
     ccv: '',
   }
 
+  const [cardType, setCardType] = useState(CardType.UNKNOWN)
+
   return (
     <Formik initialValues={initialValues} onSubmit={() => {}}>
       <StyledForm>
-        <Field name='cardNumber' component={CardNumberInput} />
+        <CardIcon cardType={cardType} />
+        <Field name='cardNumber' onCardTypeChanged={setCardType} component={CardNumberInput} />
         <Field name='expiryDate' component={ExpiryDateInput} />
         <Field name='ccv' component={CardVerificationValueInput} />
       </StyledForm>
