@@ -18,6 +18,7 @@ const errorStyle = css`
   color: red;
 `
 
+// ToDo; fix console warning: Warning: Received `false` for a non-boolean attribute `error`.
 interface InputProps {
   error: boolean
 }
